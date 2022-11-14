@@ -5,3 +5,6 @@ exports.selectTopics = () => {
         return results.rows
     })
 }
+exports.selectArticles = () => {
+    
+}
