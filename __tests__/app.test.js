@@ -7,6 +7,14 @@ const data = require("../db/data/test-data")
 beforeEach(() => seed(data))
 afterAll(() => db.end())
 
+describe("/*", () => {
+    test(":( ALL 404 - returns route not found for all invalid end-points", () => {
+        return request(app).get("/api/fdssdf").expect(404).then(({body}) => {
+            expect(body.msg).toEqual("route not found!")
+        })
+    })
+})
+
 describe("/api/topics", () => {
     test(":) GET 200 - returns an array of topics with properties slug and describtion", () => {
         return request(app).get("/api/topics").expect(200).then(({body}) => {
@@ -19,9 +27,22 @@ describe("/api/topics", () => {
             })
         })
     })
-    test(":( GET 404 - returns route not found for invalid end-points", () => {
-        return request(app).get("/api/fdssdf").expect(404).then(({body}) => {
-            expect(body.msg).toEqual("route not found!")
+})
+
+describe("/api/articles", () => {
+    test(":) GET 200 - returns an array of topics with properties slug and describtion", () => {
+        return request(app).get("/api/articles").expect(200).then(({body}) => {
+            body.forEach((article) => {
+                expect(article).toEqual({
+                    "author": expect.any(String),
+                    "title": expect.any(String),
+                    "article_id": expect.any(Number),
+                    "topic": expect.any(String),
+                    "created_at": expect.any(String),
+                    "votes" : expect.any(Number),
+                    "comment_count": expect.any(String)
+                })
+            })
         })
     })
 })
