@@ -1,15 +1,16 @@
 const request = require("supertest")
 const db = require("../db/connection")
-const {app} = require("../app")
+const app = require("../app")
 const seed = require("../db/seeds/seed")
-const { topicData, userData, articleData, commentData } = require("../db/data/test-data")
+const data = require("../db/data/test-data")
 
-beforeEach(() => seed({topicData, userData, articleData, commentData}))
+beforeEach(() => seed(data))
 afterAll(() => db.end())
 
 describe("/api/topics", () => {
     test(":) GET 200 - returns an array of topics with properties slug and describtion", () => {
         return request(app).get("/api/topics").expect(200).then(({body}) => {
+            expect(body.length).not.toBe(0)
             body.forEach((topic) => {
                 expect(topic).toEqual({
                     "slug": expect.any(String),
