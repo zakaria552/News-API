@@ -29,6 +29,7 @@ describe("/api/topics", () => {
     })
 })
 
+
 describe("/api/articles", () => {
     test(":) GET 200 - returns an array of topics with properties slug and describtion", () => {
         return request(app).get("/api/articles").expect(200).then(({body}) => {
@@ -43,6 +44,33 @@ describe("/api/articles", () => {
                     "comment_count": expect.any(String)
                 })
             })
+        })
+    })
+})
+
+describe("api/articles/:article_id", () => {
+    test(":) GET 200 - returns article given the article id", () => {
+        return request(app).get("/api/articles/3").expect(200).then(({body}) => {
+            expect(Object.keys(body).length).toBe(7)
+            expect(body).toEqual({
+                "author" : expect.any(String),
+                "title": expect.any(String),
+                "article_id" : 3,
+                "body" : expect.any(String),
+                "topic": expect.any(String),
+                "created_at": expect.any(String),
+                "votes" : expect.any(Number)
+            })
+        })
+    })
+    test(":( GET 400 - returns bad request given invalid ID", () => {
+        return request(app).get("/api/articles/dfs").expect(400).then(({body}) => {
+            console.log(body)
+        })
+    })
+    test(":( GET 404 - returns bad request given non-existent article_id", () => {
+        return request(app).get("/api/articles/300").expect(404).then(({body}) => {
+            expect(body.msg).toEqual("article not found!")
         })
     })
 })
