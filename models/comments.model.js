@@ -12,10 +12,11 @@ exports.selectCommentsByArticleid = (article_id) => {
 }
 
 exports.createCommentByArticleid = (article_id, obj) => {
-    const queryStr = `INSERT INTO comments (body, author, article_id)
-    VALUES ($1, $2, $3) RETURNING *;`
-    return db.query(queryStr, [obj.body, obj.username, article_id ]).then((result) => {
+    return selectArticleById(article_id).then(() => {
+        const queryStr = `INSERT INTO comments (body, author, article_id)
+        VALUES ($1, $2, $3) RETURNING *;`
+        return db.query(queryStr, [obj.body, obj.username, article_id ])
+    }).then((result) => {
         return result.rows[0]
     })
-    
 }
