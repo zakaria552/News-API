@@ -87,10 +87,10 @@ describe("/api/articles/:article_id/comments", () => {
         article_id: 2,
         created_at: 1592641640000,
     }
-    test(":) POST 201 - posts comment given article id, returns posted comment", () => {
+    /*test(":) POST 201 - posts comment given article id, returns posted comment", () => {
         return request(app).post("/api/articles/2/comments").send(comment).expect(201).then(({body}) => {
             
 
         })
-    })
+    })*/
 })
