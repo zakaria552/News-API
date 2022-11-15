@@ -1,31 +1,6 @@
 You are now connected to database "nc_news_test" as user "zfarah20".
- comment_id |                                                                                         body                                                                                         | article_id |    author     | votes |     created_at      
-------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------+---------------+-------+---------------------
-          1 | Oh, I've got compassion running out of my nose, pal! I'm the Sultan of Sentiment!                                                                                                    |          9 | butter_bridge |    16 | 2020-04-06 13:17:00
-          2 | The beautiful thing about treasure is that it exists. Got to find out what kind of sheets these are; not cotton, not rayon, silky.                                                   |          1 | butter_bridge |    14 | 2020-10-31 03:03:00
-          3 | Replacing the quiet elegance of the dark suit and tie with the casual indifference of these muted earth tones is a form of fashion suicide, but, uh, call me crazy — onyou it works. |          1 | icellusedkars |   100 | 2020-03-01 01:13:00
-          4 |  I carry a log — yes. Is it funny to you? It is not to me.                                                                                                                           |          1 | icellusedkars |  -100 | 2020-02-23 12:01:00
-          5 | I hate streaming noses                                                                                                                                                               |          1 | icellusedkars |     0 | 2020-11-03 21:00:00
-          6 | I hate streaming eyes even more                                                                                                                                                      |          1 | icellusedkars |     0 | 2020-04-11 22:02:00
-          7 | Lobster pot                                                                                                                                                                          |          1 | icellusedkars |     0 | 2020-05-15 21:19:00
-          8 | Delicious crackerbreads                                                                                                                                                              |          1 | icellusedkars |     0 | 2020-04-14 21:19:00
-          9 | Superficially charming                                                                                                                                                               |          1 | icellusedkars |     0 | 2020-01-01 03:08:00
-         10 | git push origin master                                                                                                                                                               |          3 | icellusedkars |     0 | 2020-06-20 08:24:00
-         11 | Ambidextrous marsupial                                                                                                                                                               |          3 | icellusedkars |     0 | 2020-09-20 00:10:00
-         12 | Massive intercranial brain haemorrhage                                                                                                                                               |          1 | icellusedkars |     0 | 2020-03-02 07:10:00
-         13 | Fruit pastilles                                                                                                                                                                      |          1 | icellusedkars |     0 | 2020-06-15 11:25:00
-         14 | What do you see? I have no idea where this will lead us. This place I speak of, is known as the Black Lodge.                                                                         |          5 | icellusedkars |    16 | 2020-06-09 06:00:00
-         15 | I am 100% sure that we're not completely sure.                                                                                                                                       |          5 | butter_bridge |     1 | 2020-11-24 00:08:00
-         16 | This is a bad article name                                                                                                                                                           |          6 | butter_bridge |     1 | 2020-10-11 16:23:00
-         17 | The owls are not what they seem.                                                                                                                                                     |          9 | icellusedkars |    20 | 2020-03-14 17:02:00
-         18 | This morning, I showered for nine minutes.                                                                                                                                           |          1 | butter_bridge |    16 | 2020-07-21 01:20:00
-(18 rows)
-
-   username    |    name    |                                avatar_url                                 
----------------+------------+---------------------------------------------------------------------------
- butter_bridge | jonny      | https://www.healthytherapies.com/wp-content/uploads/2016/06/Lime3.jpg
- icellusedkars | sam        | https://avatars2.githubusercontent.com/u/24604688?s=460&v=4
- rogersop      | paul       | https://avatars2.githubusercontent.com/u/24394918?s=400&v=4
- lurker        | do_nothing | https://www.golenbock.com/wp-content/uploads/2015/01/placeholder-user.png
-(4 rows)
+    author     
+---------------
+ icellusedkars
+(1 row)
 

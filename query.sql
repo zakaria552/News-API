@@ -1,4 +1,3 @@
 \c nc_news_test
 
-SELECT * FROM comments;
-SELECT * FROM users;
+SELECT author FROM articles WHERE article_id = 2;

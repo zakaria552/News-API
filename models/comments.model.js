@@ -13,7 +13,6 @@ exports.selectCommentsByArticleid = (article_id) => {
     })
 }
 exports.createCommentByArticleid = (article_id) => {
-    console.log(article_id)
-    const queryStr = `
-    `
+    return selectArticleById(article_id).then((article) => { 
+    })
 }
