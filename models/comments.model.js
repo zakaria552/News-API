@@ -12,3 +12,8 @@ exports.selectCommentsByArticleid = (article_id) => {
         return results.rows
     })
 }
+exports.createCommentByArticleid = (article_id) => {
+    console.log(article_id)
+    const queryStr = `
+    `
+}
