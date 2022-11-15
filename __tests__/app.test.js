@@ -62,7 +62,12 @@ describe("/api/articles/:article_id/comments", () => {
                 "author": "icellusedkars", 
                 "body": "Ambidextrous marsupial"
             }]
-            expect(body).toEqual(comments)
+            expect(body).toEqual({comments})
+        })
+    })
+    test(":) GET 200 - returns empty array of comments given article id have no comments", () => {
+        return request(app).get("/api/articles/2/comments").expect(200).then(({body}) => {
+            expect(body.comments).toEqual([])
         })
     })
     test(":( GET 400 - returns bad request given invalid article id", () => {

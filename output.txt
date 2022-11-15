@@ -1,0 +1,17 @@
+You are now connected to database "nc_news_test" as user "zfarah20".
+    author     |                         title                          | article_id | topic |     created_at      | votes | comment_count 
+---------------+--------------------------------------------------------+------------+-------+---------------------+-------+---------------
+ butter_bridge | Living in the shadow of a great man                    |          1 | mitch | 2020-07-09 21:11:00 |   100 |            11
+ icellusedkars | Sony Vaio; or, The Laptop                              |          2 | mitch | 2020-10-16 06:03:00 |     0 |             0
+ icellusedkars | Eight pug gifs that remind me of mitch                 |          3 | mitch | 2020-11-03 09:12:00 |     0 |             2
+ rogersop      | Student SUES Mitch!                                    |          4 | mitch | 2020-05-06 02:14:00 |     0 |             0
+ rogersop      | UNCOVERED: catspiracy to bring down democracy          |          5 | cats  | 2020-08-03 14:14:00 |     0 |             2
+ icellusedkars | A                                                      |          6 | mitch | 2020-10-18 02:00:00 |     0 |             1
+ icellusedkars | Z                                                      |          7 | mitch | 2020-01-07 14:08:00 |     0 |             0
+ icellusedkars | Does Mitch predate civilisation?                       |          8 | mitch | 2020-04-17 02:08:00 |     0 |             0
+ butter_bridge | They're not exactly dogs, are they?                    |          9 | mitch | 2020-06-06 10:10:00 |     0 |             2
+ rogersop      | Seven inspirational thought leaders from Manchester UK |         10 | mitch | 2020-05-14 05:15:00 |     0 |             0
+ icellusedkars | Am I a cat?                                            |         11 | mitch | 2020-01-15 22:21:00 |     0 |             0
+ butter_bridge | Moustache                                              |         12 | mitch | 2020-10-11 12:24:00 |     0 |             0
+(12 rows)
+
