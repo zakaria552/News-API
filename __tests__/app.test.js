@@ -75,20 +75,23 @@ describe("api/articles/:article_id", () => {
 describe("/api/articles/:article_id/comments", () => {
     test(":) GET 200 - returns all the comments given article id", () => {
         return request(app).get("/api/articles/3/comments").expect(200).then(({body}) => {
-            const comments = [{
+            const comments = [
+                {
+                    "comment_id" : 11,
+                    "votes" : 0,
+                    "created_at" : expect.any(String),
+                    "author": "icellusedkars", 
+                    "body": "Ambidextrous marsupial"
+                },
+                {
                 "comment_id" : 10,
                 "votes" : 0,
                 "created_at" : expect.any(String),
                 "author": "icellusedkars", 
                 "body": "git push origin master"
-            },{
-                "comment_id" : 11,
-                "votes" : 0,
-                "created_at" : expect.any(String),
-                "author": "icellusedkars", 
-                "body": "Ambidextrous marsupial"
             }]
-            expect(body).toEqual({comments})
+            expect(body.comments).toBeSortedBy('comment_id', {descending: true})
+            expect(body.comments).toEqual(comments)
         })
     })
     test(":) GET 200 - returns empty array of comments given article id have no comments", () => {
