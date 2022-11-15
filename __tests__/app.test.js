@@ -72,3 +72,41 @@ describe("api/articles/:article_id", () => {
         })
     })
 })
+describe("/api/articles/:article_id/comments", () => {
+    test(":) GET 200 - returns all the comments given article id", () => {
+        return request(app).get("/api/articles/3/comments").expect(200).then(({body}) => {
+            const comments = [
+                {
+                    "comment_id" : 11,
+                    "votes" : 0,
+                    "created_at" : expect.any(String),
+                    "author": "icellusedkars", 
+                    "body": "Ambidextrous marsupial"
+                },
+                {
+                "comment_id" : 10,
+                "votes" : 0,
+                "created_at" : expect.any(String),
+                "author": "icellusedkars", 
+                "body": "git push origin master"
+            }]
+            expect(body.comments).toBeSortedBy('comment_id', {descending: true})
+            expect(body.comments).toEqual(comments)
+        })
+    })
+    test(":) GET 200 - returns empty array of comments given article id have no comments", () => {
+        return request(app).get("/api/articles/2/comments").expect(200).then(({body}) => {
+            expect(body.comments).toEqual([])
+        })
+    })
+    test(":( GET 400 - returns bad request given invalid article id", () => {
+        return request(app).get("/api/articles/ab/comments").expect(400).then(({body}) => {
+            expect(body.msg).toEqual("bad request!")
+        })
+    })
+    test(":( GET 404 - returns article not found given invalid article id", () => {
+        return request(app).get("/api/articles/700/comments").expect(404).then(({body}) => {
+            expect(body.msg).toEqual("article not found!")
+        })
+    })
+})
