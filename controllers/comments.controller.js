@@ -11,7 +11,6 @@ exports.postCommentByArticleid = (req, res, next) => {
     createCommentByArticleid(req.params.article_id, req.body).then((comment) => {
         res.status(201).send({comment})
     }).catch((err) => {
-        console.log(err)
         next(err)
     })
 }
