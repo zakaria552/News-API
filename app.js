@@ -4,12 +4,12 @@ const {getTopics} = require("./controllers/topics.controller")
 const {getArticles, getArticleById} = require("./controllers/articles.controller")
 const {getCommentsByArticleid, postCommentByArticleid} = require("./controllers/comments.controller")
 
+app.use(express.json())
 app.get("/api/topics", getTopics)
 app.get("/api/articles", getArticles)
 
 app.get("/api/articles/:article_id", getArticleById)
 app.get("/api/articles/:article_id/comments", getCommentsByArticleid)
-app.use(express.json())
 app.post("/api/articles/:article_id/comments", postCommentByArticleid)
 app.all("/*", (req, res) => {
     res.status(404).send({msg: "route not found!"})

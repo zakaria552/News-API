@@ -109,11 +109,11 @@ describe("/api/articles/:article_id/comments", () => {
             expect(body.msg).toEqual("article not found!")
         })
     })
-    const comment = {
-        "username": "lurker",
-        "body": "added comment",
-    }
     test(":) POST 201 - posts comment given article id, returns posted comment", () => {
+        const comment = {
+            "username": "lurker",
+            "body": "added comment",
+        }
         return request(app).post("/api/articles/2/comments").send(comment).expect(201).then(({body}) => {
             expect(body.comment).toMatchObject({
                 comment_id: 19,
@@ -125,6 +125,28 @@ describe("/api/articles/:article_id/comments", () => {
             })
         })
     })
+    test(":) POST 201 - posts a comment in article given a body with properties more than needed", () => {
+        const comment = {
+            "username": "lurker",
+            "body": "added comment",
+            "author": "jack"
+        }
+        return request(app).post("/api/articles/2/comments").send(comment).expect(201).then(({body}) => {
+            expect(body.comment).toMatchObject({
+                comment_id: 19,
+                body: "added comment",
+                votes: 0,
+                article_id: 2,
+                author: "lurker",
+                created_at: expect.any(String)
+            })
+        })
+    } )
+    test(":( POST 404 - returns article not found given article that does not exist", () => {
+        return request(app).post("/api/articles/434/comments").expect(404).then(({body}) => {
+            expect(body.msg).toBe("article not found!")
+        })
+    })
     test(":( POST 400 - returns bad request given malformed body or missing field requirement", () => {
         return request(app).post("/api/articles/2/comments").send({msg: "fds", username: "lurker"}).expect(400).then(({body}) => {
             expect(body.msg).toBe("bad request!")
@@ -132,6 +154,16 @@ describe("/api/articles/:article_id/comments", () => {
     })
     test(":( POST 400 - returns bad request given body that fails schema validation", () => {
         return request(app).post("/api/articles/2/comments").send({body: 2021, username: 999}).expect(400).then(({body}) => {
+            expect(body.msg).toBe("bad request!")
+        })
+    })
+    test(":( POST 400 - returns user bad request given username that violates foreign key constraint", () => {
+        const body = {
+            "username": "zakaria",
+            "body": "added comment",
+            "author": "jack"
+        }
+        return request(app).post("/api/articles/2/comments").send(body).expect(400).then(({body}) => {
             expect(body.msg).toBe("bad request!")
         })
     })
