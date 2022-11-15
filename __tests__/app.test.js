@@ -84,7 +84,7 @@ describe("/api/articles/:article_id/comments", () => {
         "username": "zakaria",
         body: "added comment",
     }
-    test(":) POST 201 - posts comment given article id, returns posted comment", () => {
+    /*test(":) POST 201 - posts comment given article id, returns posted comment", () => {
         return request(app).post("/api/articles/2/comments").send(comment).expect(201).then(({body}) => {
             expect()
             expect(body.comment).toMatchObject({
@@ -97,5 +97,5 @@ describe("/api/articles/:article_id/comments", () => {
             })
 
         })
-    })
+    })*/
 })
