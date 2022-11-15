@@ -136,3 +136,28 @@ describe("/api/articles/:article_id/comments", () => {
         })
     })
 })
+describe("PATCH /api/articles/:article_id", () => {
+    test(":) PATCH 201 - updates article given article id, returns updated article", () => {
+        return request(app).patch("/api/articles/1").send({inc_votes: -5}).expect(201).then(({body}) => {
+            expect(body.updatedArticle).toMatchObject({
+                article_id: 1,
+                title: "Living in the shadow of a great man",
+                topic: "mitch",
+                author: "butter_bridge",
+                body: "I find this existence challenging",
+                created_at: expect.any(String),
+                votes: 95,
+            })
+        })
+    })
+    test(":( PATCH 400 - returns bad request given malformed body or missing field requirement", () => {
+        return request(app).patch("/api/articles/1").send({author: "fds"}).expect(400).then(({body}) => {
+            expect(body.msg).toBe("bad request!")
+        })
+    })
+    /*test(":( PATCH 400 - returns bad request given body that fails schema validation", () => {
+        return request(app).patch("/api/articles/2").send({inc_votes: "4"}).expect(400).then(({body}) => {
+            expect(body.msg).toBe("bad request!")
+        })
+    })*/
+})
