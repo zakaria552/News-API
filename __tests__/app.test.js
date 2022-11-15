@@ -63,12 +63,12 @@ describe("api/articles/:article_id", () => {
     })
     test(":( GET 400 - returns bad request given invalid ID", () => {
         return request(app).get("/api/articles/dfs").expect(400).then(({body}) => {
-            expect(body.msg).toEqual("bad request!")
+            expect(body.msg).toBe("bad request!")
         })
     })
     test(":( GET 404 - returns bad request given non-existent article_id", () => {
         return request(app).get("/api/articles/300").expect(404).then(({body}) => {
-            expect(body.msg).toEqual("article not found!")
+            expect(body.msg).toBe("article not found!")
         })
     })
 })

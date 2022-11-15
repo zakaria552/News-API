@@ -13,9 +13,6 @@ exports.selectArticles = () => {
     })
 }
 exports.selectArticleById = (article_id) => { 
-    if(isNaN(parseInt(article_id)))  {
-        return Promise.reject({"status": 400, msg: "bad request!"})
-    }
     const queryStr = `SELECT author, title, article_id, body, topic, created_at, votes
         FROM articles WHERE article_id = $1;`
     return db.query(queryStr, [article_id]).then((results) => {
