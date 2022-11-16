@@ -171,7 +171,7 @@ describe("/api/articles/:article_id/comments", () => {
 describe("PATCH /api/articles/:article_id", () => {
     test(":) PATCH 200 - updates the article given article id, returns key of updated article", () => {
         return request(app).patch("/api/articles/1").send({inc_votes: -5}).expect(200).then(({body}) => {
-            expect(body.updatedArticle).toMatchObject({
+            expect(body.article).toMatchObject({
                 article_id: 1,
                 title: "Living in the shadow of a great man",
                 topic: "mitch",
@@ -184,7 +184,7 @@ describe("PATCH /api/articles/:article_id", () => {
     })
     test(":) PATCH 200 - updates the article given body that has more properties than needed", () => {
         return request(app).patch("/api/articles/1").send({inc_votes: 4, article_id: 5}).expect(200).then((({body}) => {
-            expect(body.updatedArticle).toMatchObject({
+            expect(body.article).toMatchObject({
                 article_id: 1,
                 title: "Living in the shadow of a great man",
                 topic: "mitch",
