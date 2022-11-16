@@ -166,8 +166,57 @@ describe("/api/articles(queries)", () => {
             expect(body.articles).toBeSortedBy("article_id")
         })
     })
-    test.only("GET 400 - given misspelled key query returns bad request", () => {
+    test("GET 400 - given misspelled key query returns bad request", () => {
         return request(app).get("/api/articles?yb_tros=article_id&ordr=asc").expect(400).then(({body}) => {
+            expect(body.msg).toBe("bad request!")
+        })
+    })
+})
+
+describe.only("PATCH /api/comments/:comment_id", () => {
+    test(":) 200 - updates the comment given a valid comment id and body", () => {
+        return request(app).patch("/api/comments/1").send({inc_votes: 1}).expect(200).then(({body}) => {
+            expect(body.comment).toMatchObject({
+                comment_id: 1,
+                body: expect.any(String),
+                article_id: 9,
+                author: "butter_bridge",
+                votes: 17,
+                created_at: expect.any(String)
+
+            })
+        })
+    })
+    test(":( 404 - given comment id that does not exist return comment not found", () => {
+        return request(app).patch("/api/comments/323").send({inc_votes: 1}).expect(404).then(({body}) => {
+            expect(body.msg).toBe("comment not found!")
+        })
+    })
+    test(":( 400 - given invalid comment id return bad request", () => {
+        return request(app).patch("/api/comments/nonsense").send({inc_votes: 1}).expect(400).then(({body}) => {
+            expect(body.msg).toBe("bad request!")
+        })
+    })
+    test(":( 400 - given body that fails the schema validation return bad request", () => {
+        return request(app).patch("/api/comments/nonsense").send({inc_votes: "one"}).expect(400).then(({body}) => {
+            expect(body.msg).toBe("bad request!")
+        })
+    })
+    test(":) 200 - given body with more properties than needed returns the comment", () => {
+        return request(app).patch("/api/comments/1").send({inc_votes: 1, article_id: 9}).expect(200).then(({body}) => {
+            expect(body.comment).toMatchObject({
+                comment_id: 1,
+                body: expect.any(String),
+                article_id: 9,
+                author: "butter_bridge",
+                votes: 17,
+                created_at: expect.any(String)
+
+            })
+        })
+    })
+    test(":( 400 - given a body with invalid key returns bad request", () => {
+        return request(app).patch("/api/comments/1").send({inc_vtes: 2}).expect(400).then(({body}) => {
             expect(body.msg).toBe("bad request!")
         })
     })
