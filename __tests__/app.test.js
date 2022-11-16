@@ -32,7 +32,9 @@ describe("/api/topics", () => {
 describe("/api/articles", () => {
     test(":) GET 200 - returns an array of topics with properties slug and describtion", () => {
         return request(app).get("/api/articles").expect(200).then(({body}) => {
-            body.forEach((article) => {
+            console.log(body.artcles)
+            expect(body.articles).toBeSortedBy("created_at", {descending: true})
+            body.articles.forEach((article) => {
                 expect(article).toEqual({
                     "author": expect.any(String),
                     "title": expect.any(String),
@@ -107,6 +109,47 @@ describe("/api/articles/:article_id/comments", () => {
     test(":( GET 404 - returns article not found given invalid article id", () => {
         return request(app).get("/api/articles/700/comments").expect(404).then(({body}) => {
             expect(body.msg).toEqual("article not found!")
+        })
+    })
+})
+describe("/api/articles(queries)", () => {
+    test("GET 200 - filters the articles by specified topic", () => {
+        return request(app).get("/api/articles?topic=mitch").expect(200).then(({body}) => {
+            expect(body.articles).toHaveLength(11)
+            body.articles.forEach((article) => {
+                expect(article.topic).toBe("mitch")
+            })
+        })
+    })
+    test("GET 200 - given no topic query returns all the articles", () => {
+        return request(app).get("/api/articles").expect(200).then(({body}) => {
+            expect(body.articles).toHaveLength(12)
+            body.articles.forEach((article) => {
+                expect(article).toEqual({
+                    "author": expect.any(String),
+                    "title": expect.any(String),
+                    "article_id": expect.any(Number),
+                    "topic": expect.any(String),
+                    "created_at": expect.any(String),
+                    "votes" : expect.any(Number),
+                    "comment_count": expect.any(String)
+                })
+            })
+        })
+    })
+    test("GET 400 - given topic query with invalid topic value returns bad request", () => {
+        return request(app).get("/api/articles?topic=wtf").expect(400).then(({body}) => {
+            expect(body.msg).toEqual("bad request!")
+        })
+    })
+    test("GET 200 - sorts by given column name", () => {
+        return request(app).get("/api/articles?sort_by=article_id").expect(200).then(({body}) => {
+            expect(body.articles).toBeSortedBy("article_id", {descending: true})
+        })
+    })
+    test("GET 200 - sorts by date by default if given invalid sort query", () => {
+        return request(app).get("/api/articles?sort_by=password&order=DESC").expect(200).then(({body}) => {
+            expect(body.articles).toBeSortedBy("created_at", {descending: true})
         })
     })
 })
