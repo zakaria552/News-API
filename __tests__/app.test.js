@@ -219,3 +219,19 @@ describe("GET /api/articles/:article_id", () => {
         })
     })
 })
+
+describe("DELETE /api/comments/:comment_id", () => {
+    test(":) 204 - deletes comment by id", () => {
+        return request(app).delete("/api/comments/2").expect(204)
+    })
+    test(":( 404 - returns comment not found given comment id that does not exist", () => {
+        return request(app).delete("/api/comments/2323").expect(404).then(({body}) => {
+            expect(body.msg).toBe("comment not found!")
+        })
+    })
+    test(":( 400 - returns bad request given invalid comment id", () => {
+        return request(app).delete("/api/comments/nonsense").expect(400).then(({body}) => {
+            expect(body.msg).toBe("bad request!")
+        })
+    })
+})
