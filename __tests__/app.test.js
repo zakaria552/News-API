@@ -235,3 +235,19 @@ describe("DELETE /api/comments/:comment_id", () => {
         })
     })
 })
+describe("GET /api/users/:username", () => {
+    test(":) 200 - given username returns object with user key", () => {
+        return request(app).get("/api/users/lurker").expect(200).then(({body}) => {
+            expect(body.user).toMatchObject({
+                "username": "lurker",
+                "name": "do_nothing",
+                "avatar_url": "https://www.golenbock.com/wp-content/uploads/2015/01/placeholder-user.png"
+            })
+        })
+    })
+    test(":( 404 - returns user not found given invalid username", () => {
+        return request(app).get("/api/users/zakaria").expect(404).then(({body}) => {
+            expect(body.msg).toBe("user not found!")
+        })
+    })
+})

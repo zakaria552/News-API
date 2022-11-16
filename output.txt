@@ -1,6 +1,0 @@
-You are now connected to database "nc_news_test" as user "zfarah20".
- comment_count 
----------------
-            11
-(1 row)
-
