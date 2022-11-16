@@ -1,7 +1,7 @@
 const db = require("../db/connection")
-exports.selectArticles = (topic, sort_by = "created_at", order = "DESC") => {
+exports.selectArticles = (topic, sort_by = "created_at", order = "desc") => {
     const validSort = ["author", "title", "article_id", "topic", "created_at", "votes", "comment_count"]
-    const validOrder = ["DESC", "ASC"]
+    const validOrder = ["desc", "asc"]
     let  queryStr = `SELECT articles.author, title, articles.article_id, topic, articles.created_at, 
         articles.votes, COUNT(comments.article_id) as comment_count FROM articles
         LEFT JOIN comments

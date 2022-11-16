@@ -161,5 +161,14 @@ describe("/api/articles(queries)", () => {
             expect(body.msg).toBe("invalid order query!")
         })
     })
-
+    test("GET 200 - given valid order query, orders the sort column", () => {
+        return request(app).get("/api/articles?sort_by=article_id&order=asc").expect(200).then(({body}) => {
+            expect(body.articles).toBeSortedBy("article_id")
+        })
+    })
+    test.only("GET 400 - given misspelled key query returns bad request", () => {
+        return request(app).get("/api/articles?yb_tros=article_id&ordr=asc").expect(400).then(({body}) => {
+            expect(body.msg).toBe("bad request!")
+        })
+    })
 })
