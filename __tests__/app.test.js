@@ -147,14 +147,20 @@ describe("/api/articles(queries)", () => {
             expect(body.articles).toBeSortedBy("article_id", {descending: true})
         })
     })
-    test("GET 200 - sorts by date by default if given invalid sort query", () => {
-        return request(app).get("/api/articles?sort_by=password&order=DESC").expect(200).then(({body}) => {
+    test("GET 200 - sorts by date in descending order if not given sort by query", () => {
+        return request(app).get("/api/articles").expect(200).then(({body}) => {
             expect(body.articles).toBeSortedBy("created_at", {descending: true})
         })
     })
-    test("GET 200 - given invalid order query orders decending by default", () => {
-        return request(app).get("/api/articles?sort_by=password&order=noon").expect(200).then(({body}) => {
-            expect(body.articles).toBeSortedBy("created_at", {descending: true})
+    test("GET 400 - given invalid sort query returns invalid sort query", () => {
+        return request(app).get("/api/articles?sort_by=password").expect(400).then(({body}) => {
+            expect(body.msg).toBe("invalid sort query!")
         })
     })
+    test("GET 400 - given invalid order query returns invalid order query", () => {
+        return request(app).get("/api/articles?sort_by=created_at&order=square").expect(400).then(({body}) => {
+            expect(body.msg).toBe("invalid order query!")
+        })
+    })
+    
 })
