@@ -1,7 +1,10 @@
 const {selectArticles, selectArticleById, updateArticle} = require("../models/articles.model")
-exports.getArticles = (req, res) => {
-    return selectArticles().then((articles) => {
-        res.status(200).send(articles)
+exports.getArticles = (req, res, next) => {
+    const {topic, sort_by, order} = req.query
+    return selectArticles(topic, sort_by, order).then((articles) => {
+        res.status(200).send({articles})
+    }).catch((err) => {
+        next(err)
     })
 }
 exports.getArticleById = (req, res, next) => {
