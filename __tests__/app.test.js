@@ -168,3 +168,46 @@ describe("/api/articles/:article_id/comments", () => {
         })
     })
 })
+describe("PATCH /api/articles/:article_id", () => {
+    test(":) PATCH 200 - updates the article given article id, returns key of updated article", () => {
+        return request(app).patch("/api/articles/1").send({inc_votes: -5}).expect(200).then(({body}) => {
+            expect(body.article).toMatchObject({
+                article_id: 1,
+                title: "Living in the shadow of a great man",
+                topic: "mitch",
+                author: "butter_bridge",
+                body: "I find this existence challenging",
+                created_at: expect.any(String),
+                votes: 95,
+            })
+        })
+    })
+    test(":) PATCH 200 - updates the article given body that has more properties than needed", () => {
+        return request(app).patch("/api/articles/1").send({inc_votes: 4, article_id: 5}).expect(200).then((({body}) => {
+            expect(body.article).toMatchObject({
+                article_id: 1,
+                title: "Living in the shadow of a great man",
+                topic: "mitch",
+                author: "butter_bridge",
+                body: "I find this existence challenging",
+                created_at: expect.any(String),
+                votes: 104,
+            })
+        }))
+    })
+    test(":( PATCH 400 - returns bad request given malformed body or missing field requirement", () => {
+        return request(app).patch("/api/articles/1").send({author: "fds"}).expect(400).then(({body}) => {
+            expect(body.msg).toBe("bad request!")
+        })
+    })
+    test(":( PATCH 400 - returns bad request given wrong data type to inc_votes", () => {
+        return request(app).patch("/api/articles/1").send({inc_votes: "adsf"}).expect(400).then(({body}) => {
+            expect(body.msg).toBe("bad request!")
+        })
+    })
+    test(":( PATCH 404 - returns article not found given invalid article id", () => {
+        return request(app).patch("/api/articles/434").send({inc_votes: 3}).expect(404).then(({body}) => {
+            expect(body.msg).toBe("article not found!")
+        })
+    })
+})
