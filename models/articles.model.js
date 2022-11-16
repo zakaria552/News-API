@@ -20,3 +20,15 @@ exports.selectArticleById = (article_id) => {
         return results.rows[0]
     })
 }
+exports.updateArticle = (article_id, obj) => {
+    return this.selectArticleById(article_id).then(() => {
+        return db.query(`SELECT votes FROM articles WHERE article_id = $1`, [article_id])
+    }).then((results) => {
+        return results.rows[0].votes
+    }).then((votes) => {
+        const queryStr = ` UPDATE articles SET votes = $1 WHERE article_id = $2 RETURNING *;`
+        return db.query(queryStr, [votes + obj.inc_votes, article_id])
+    }).then((results) => {
+        return results.rows[0]
+    })
+}
