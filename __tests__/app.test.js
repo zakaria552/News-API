@@ -49,8 +49,8 @@ describe("/api/articles", () => {
 describe("api/articles/:article_id", () => {
     test(":) GET 200 - returns article given the article id", () => {
         return request(app).get("/api/articles/3").expect(200).then(({body}) => {
-            expect(Object.keys(body).length).toBe(7)
-            expect(body).toEqual({
+            expect(Object.keys(body.article).length).toBe(7)
+            expect(body.article).toEqual({
                 "author" : expect.any(String),
                 "title": expect.any(String),
                 "article_id" : 3,
@@ -208,6 +208,14 @@ describe("PATCH /api/articles/:article_id", () => {
     test(":( PATCH 404 - returns article not found given invalid article id", () => {
         return request(app).patch("/api/articles/434").send({inc_votes: 3}).expect(404).then(({body}) => {
             expect(body.msg).toBe("article not found!")
+        })
+    })
+})
+
+describe("GET /api/articles/:article_id", () => {
+    test(":) 200 - response object now contains the count of all its comments", () => {
+        return request(app).get("/api/articles/1").expect(200).then(({body}) => {
+            expect(body.comment_count).toBe(11)
         })
     })
 })
