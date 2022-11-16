@@ -32,7 +32,6 @@ describe("/api/topics", () => {
 describe("/api/articles", () => {
     test(":) GET 200 - returns an array of topics with properties slug and describtion", () => {
         return request(app).get("/api/articles").expect(200).then(({body}) => {
-            console.log(body.articles)
             expect(body.articles).toBeSortedBy("created_at", {descending: true})
             body.articles.forEach((article) => {
                 expect(article).toEqual({
@@ -162,5 +161,5 @@ describe("/api/articles(queries)", () => {
             expect(body.msg).toBe("invalid order query!")
         })
     })
-    
+
 })
