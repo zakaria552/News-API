@@ -11,13 +11,11 @@ exports.selectArticles = (topic, sort_by = "created_at", order = "DESC") => {
     if(topic) queryStr += ` WHERE topic = '${topic}'`
     if(!validSort.includes(sort_by)) return Promise.reject({"status": 400, "msg": "invalid sort query!"})
     if(!validOrder.includes(order)) return Promise.reject({"status": 400, "msg": "invalid order query!"})
-    queryStr += `
+    queryStr += ` 
      GROUP BY articles.article_id 
      ORDER BY ${sort_by} ${order};
     `
-    console.log(queryStr, queryValues)
     return db.query(queryStr, queryValues).then((results) => {
-        console.log(results.rows)
         if(!results.rows.length) return Promise.reject({"status": 400, "msg": "bad request!"})
         return results.rows
     })
