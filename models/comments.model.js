@@ -20,3 +20,11 @@ exports.createCommentByArticleid = (article_id, obj) => {
         return result.rows[0]
     })
 }
+
+exports.removeComment = (comment_id) => {
+    return db.query("SELECT * FROM comments WHERE comment_id = $1;", [comment_id])
+    .then((results) => {
+        if(!results.rows.length) return Promise.reject({status: 404, msg: "comment not found!"})
+        return db.query("DELETE FROM comments WHERE comment_id = $1 RETURNING *;", [comment_id])
+    })
+}
