@@ -47,7 +47,6 @@ const seed = async ({ topicData, userData, articleData, commentData }) => {
     votes INT DEFAULT 0 NOT NULL,
     created_at TIMESTAMP DEFAULT NOW()
   );`);
-
   const insertTopicsQueryStr = format(
     'INSERT INTO topics (slug, description) VALUES %L RETURNING *;',
     topicData.map(({ slug, description }) => [slug, description])
