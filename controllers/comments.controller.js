@@ -26,7 +26,6 @@ exports.patchComment = (req, res, next) => {
     updateComment(req.params.comment_id, req.body).then((comment) => {
         res.status(200).send({comment})
     }).catch((err) => {
-        console.log(err)
         next(err)
     })
 }
