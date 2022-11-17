@@ -7,7 +7,6 @@ exports.getArticles = (req, res, next) => {
     return selectArticles(topic, sort_by, order).then((articles) => {
         res.status(200).send({articles})
     }).catch((err) => {
-        console.log(err)
         next(err)
     })
 }
