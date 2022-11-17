@@ -136,11 +136,6 @@ describe("/api/articles(queries)", () => {
             })
         })
     })
-    test("GET 400 - given topic query with invalid topic value returns bad request", () => {
-        return request(app).get("/api/articles?topic=wtf").expect(400).then(({body}) => {
-            expect(body.msg).toEqual("bad request!")
-        })
-    })
     test("GET 200 - sorts by given column name", () => {
         return request(app).get("/api/articles?sort_by=article_id").expect(200).then(({body}) => {
             expect(body.articles).toBeSortedBy("article_id", {descending: true})
@@ -166,9 +161,19 @@ describe("/api/articles(queries)", () => {
             expect(body.articles).toBeSortedBy("article_id")
         })
     })
-    test.only("GET 400 - given misspelled key query returns bad request", () => {
+    test("GET 400 - given misspelled key query returns bad request", () => {
         return request(app).get("/api/articles?yb_tros=article_id&ordr=asc").expect(400).then(({body}) => {
             expect(body.msg).toBe("bad request!")
+        })
+    })
+    test("GET 400 - given topic query with invalid topic value returns invalid topic query", () => {
+        return request(app).get("/api/articles?topic=wtf").expect(400).then(({body}) => {
+            expect(body.msg).toEqual("invalid topic query!")
+        })
+    })
+    test("GET 200 - given a valid topic query but has no articles returns an empty array of articles", () => {
+        return request(app).get("/api/articles?topic=paper").expect(200).then(({body}) => {
+            expect(body.articles).toHaveLength(0)
         })
     })
 })
