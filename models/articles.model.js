@@ -31,14 +31,6 @@ exports.selectArticles = (topic, sort_by = "created_at", order = "desc") => {
         if(!selectTopic.rows.length) return Promise.reject({status: 400, msg: "invalid topic query!"})
         return selectArticles.rows
     })
-    return db.query(queryStr, queryValues)
-    
-    .then((results) => {
-        if(!results.rows.length) {
-            return Promise.reject({"status": 400, "msg": "bad request!"})
-        }
-        return results.rows
-    })
 }
 exports.selectArticleById = (article_id) => { 
     const queryStr = `SELECT author, title, article_id, body, topic, created_at, votes
