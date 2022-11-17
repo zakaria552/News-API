@@ -4,12 +4,12 @@ const {getTopics} = require("./controllers/topics.controller")
 const {getArticles, getArticleById, patchArticle} = require("./controllers/articles.controller")
 const {getCommentsByArticleid, postCommentByArticleid, deleteComment, patchComment} = require("./controllers/comments.controller")
 const {getUsers} = require("./controllers/users.controller")
-
+const {getApi} = require("./controllers/api.controller")
 
 app.use(express.json())
+app.get("/api", getApi)
 app.get("/api/topics", getTopics)
 app.get("/api/articles", getArticles)
-
 app.get("/api/articles/:article_id", getArticleById)
 app.get("/api/articles/:article_id/comments", getCommentsByArticleid)
 app.post("/api/articles/:article_id/comments", postCommentByArticleid)

@@ -3,6 +3,7 @@ const db = require("../db/connection")
 const app = require("../app")
 const seed = require("../db/seeds/seed")
 const data = require("../db/data/test-data")
+const fs = require("fs/promises")
 
 beforeEach(() => seed(data))
 afterAll(() => db.end())
@@ -358,6 +359,15 @@ describe("GET /api/users", () => {
                     "name": expect.any(String),
                     "avatar_url": expect.any(String)
                 })
+            })
+        })
+    })
+})
+describe("GET /api", () => {
+    test(":) 200 - responds with json descriping all the endpoints", () => {
+        return request(app).get("/api").expect(200).then(({body}) => {
+            fs.readFile("endpoints2.json").then((content) => {
+                expect(body.endpoints).toEqual(content)
             })
         })
     })
