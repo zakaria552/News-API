@@ -32,12 +32,16 @@ exports.selectArticles = (topic, sort_by = "created_at", order = "desc") => {
         return selectArticles.rows
     })
 }
-exports.selectArticleById = (article_id) => { 
+exports.selectArticleById = (article_id) => {
+    const promises = []
     const queryStr = `SELECT author, title, article_id, body, topic, created_at, votes
         FROM articles WHERE article_id = $1;`
-    return db.query(queryStr, [article_id]).then((results) => {
-        if(!results.rows.length) return Promise.reject({"status": 404, msg: "article not found!"})
-        return results.rows[0]
+    promises.push(db.query("SELECT COUNT(comment_id) FROM comments WHERE article_id = $1", [article_id]))
+    promises.push(db.query(queryStr,[article_id]))
+    return Promise.all(promises).then((values) => {
+        if(!values[1].rows.length) return Promise.reject({"status": 404, msg: "article not found!"})
+        const comment_count = parseInt(values[0].rows[0].count)
+        return {article: values[1].rows[0], comment_count}
     })
 }
 exports.updateArticle = (article_id, obj) => {
