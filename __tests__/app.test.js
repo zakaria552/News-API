@@ -49,16 +49,16 @@ describe("/api/articles", () => {
 describe("api/articles/:article_id", () => {
     test(":) GET 200 - returns article given the article id", () => {
         return request(app).get("/api/articles/3").expect(200).then(({body}) => {
-            expect(Object.keys(body.article).length).toBe(7)
-            expect(body.article).toEqual({
-                "article_id": 3,
+            expect(Object.keys(body.article).length).toBe(8)
+            expect(body.article).toMatchObject({
                 "author" : expect.any(String),
                 "title": expect.any(String),
                 "article_id" : 3,
                 "body" : expect.any(String),
                 "topic": expect.any(String),
                 "created_at": expect.any(String),
-                "votes" : expect.any(Number)
+                "votes" : expect.any(Number),
+                "comment_count": expect.any(String)
             })
         })
     })
@@ -281,7 +281,7 @@ describe("/api/articles(queries)", () => {
 describe("GET /api/articles/:article_id", () => {
     test(":) 200 - response object now contains the count of all its comments", () => {
         return request(app).get("/api/articles/1").expect(200).then(({body}) => {
-            expect(body.comment_count).toBe(11)
+            expect(body.article.comment_count).toBe("11")
         })
     })
 })

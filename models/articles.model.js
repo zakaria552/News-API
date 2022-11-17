@@ -40,8 +40,9 @@ exports.selectArticleById = (article_id) => {
     promises.push(db.query(queryStr,[article_id]))
     return Promise.all(promises).then((values) => {
         if(!values[1].rows.length) return Promise.reject({"status": 404, msg: "article not found!"})
-        const comment_count = parseInt(values[0].rows[0].count)
-        return {article: values[1].rows[0], comment_count}
+        const [comment_count, article] = values
+        article.rows[0].comment_count = comment_count.rows[0].count
+        return article.rows[0]
     })
 }
 exports.updateArticle = (article_id, obj) => {
