@@ -1,0 +1,118 @@
+{
+    "GET /api": {
+        "description": "serves up a json representation of all the available endpoints of the api"
+    },
+    "GET /api/topics": {
+        "description": "serves an array all topics",
+        "queries": [],
+        "exampleResponse": {
+            "topics": [{"slug": "football", "description": "Footie!"}]
+        }
+    },
+    "GET /api/articles": {
+        "description": "serves an array of all articles",
+        "queries": ["topic", "sort_by", "order"],
+        "exampleResponse": [
+            {
+                "article_id": "1",
+                "title": "Living in the shadow of a great man",
+                "topic": "mitch", 
+                "author": "butter_bridge",
+                "body": "I find this existence challenging",
+                "created_at": "2020-07-09 21:11:00",
+                "comment_count": "11"
+            }
+        ]
+    },
+    "GET /api/articles/:article_id": {
+        "description": "serves an article object corresponding to the article id",
+        "queries": [],
+        "exampleResponse": {
+            "article_id": "7",
+            "title": "Z",
+            "topic": "mitch", 
+            "author": "icellusedkars",
+            "body": "I was hungry.",
+            "created_at": "2020-01-07 14:08:00",
+            "votes": "23",
+            "comment_count": "3"
+        }
+    },
+    "GET /api/articles/:article_id/comments": {
+        "description": "serves an array of all the comments in an article",
+        "queries": [],
+        "exampleResponse": [
+            {
+                "comment_id" : 11,
+                "votes" : 3,
+                "created_at" : "2020-01-07 14:08:00",
+                "author": "icellusedkars", 
+                "body": "Ambidextrous marsupial"
+            },
+            {
+            "comment_id" : 10,
+            "votes" : 0,
+            "created_at" : "2020-01-07 11:08:00",
+            "author": "icellusedkars", 
+            "body": "git push origin master"
+            }
+        ]    
+    },
+    "POST /api/articles/:article_id/comments" : {
+        "description": "posts a comment in the article and serves the comment",
+        "requestBody": {
+            "username": "jack",
+            "body": "couldn't agree more"
+        },
+        "queries": [],
+        "exampleResponse": {
+            "comment_id": "32",
+            "body": "lovely day",
+            "votes": "0",
+            "article_id": "3",
+            "author": "lurker"
+        }
+    },
+    "PATCH /api/articles/:article_id": {
+        "description": "updates the votes on the article by incrementing or decrementing and serves the updated article",
+        "requestBody": {"inc_votes": "1"},
+        "queries": [],
+        "exampleResponse": {
+            "article_id": "7",
+            "title": "Z",
+            "topic": "mitch", 
+            "author": "icellusedkars",
+            "body": "I was hungry.",
+            "created_at": "2020-01-07 14:08:00",
+            "votes": "24",
+            "comment_count": "3"
+        }
+    },
+    "DELETE /api/comments/:comment_id": {
+        "description": "deletes a comment by comment id",
+        "queries": []
+    },
+    "PATCH /api/comments/comment_id": {
+        "description": "updates the votes on the comment by incrementing or decrementing and serves the updated comment",
+        "queries": [],
+        "requestBody": {"inc_votes": "2"} ,
+        "exampleResponse": {
+            "comment_id": "32",
+            "body": "lovely day",
+            "votes": "2",
+            "article_id": "3",
+            "author": "lurker"
+        }
+    },
+    "GET /api/users": {
+        "description": "serves an array of all users",
+        "queries": [],
+        "exampleResponse": [
+            {
+                "username": "butter_bridge",
+                "name": "jonny",
+                "avatar_url": "https://www.healthytherapies.com/wp-content/uploads/2016/06/Lime3.jpg"
+            }
+        ]
+    }
+}
