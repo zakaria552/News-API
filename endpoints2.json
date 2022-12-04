@@ -92,7 +92,7 @@
         "description": "deletes a comment by comment id",
         "queries": []
     },
-    "PATCH /api/comments/comment_id": {
+    "PATCH /api/comments/:comment_id": {
         "description": "updates the votes on the comment by incrementing or decrementing and serves the updated comment",
         "queries": [],
         "requestBody": {"inc_votes": "2"} ,
@@ -114,5 +114,14 @@
                 "avatar_url": "https://www.healthytherapies.com/wp-content/uploads/2016/06/Lime3.jpg"
             }
         ]
+    },
+    "GET /api/users/:username": {
+        "description": "serves an array of all users",
+        "queries": [],
+        "exampleResponse": {
+            "username": "lurker",
+            "name": "do_nothing",
+            "avatar_url": "https://www.golenbock.com/wp-content/uploads/2015/01/placeholder-user.png"
+        }
     }
 }
