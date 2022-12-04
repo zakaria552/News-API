@@ -5,6 +5,8 @@ const {getArticles, getArticleById, patchArticle} = require("./controllers/artic
 const {getCommentsByArticleid, postCommentByArticleid, deleteComment, patchComment} = require("./controllers/comments.controller")
 const {getUsers} = require("./controllers/users.controller")
 const {getApi} = require("./controllers/api.controller")
+const {getUserByUsername} = require("./controllers/users.controller")
+
 
 app.use(express.json())
 app.get("/api", getApi)
@@ -17,6 +19,7 @@ app.patch("/api/articles/:article_id", patchArticle)
 app.delete("/api/comments/:comment_id", deleteComment)
 app.patch("/api/comments/:comment_id", patchComment)
 app.get("/api/users", getUsers)
+app.get("/api/users/:username", getUserByUsername)
 app.all("/*", (req, res) => {
     res.status(404).send({msg: "route not found!"})
 })
