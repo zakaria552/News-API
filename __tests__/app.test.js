@@ -363,6 +363,22 @@ describe("GET /api/users", () => {
         })
     })
 })
+describe("GET /api/users/:username", () => {
+    test(":) 200 - given username returns user object", () => {
+        return request(app).get("/api/users/lurker").expect(200).then(({body}) => {
+            expect(body.user).toMatchObject({
+                "username": "lurker",
+                "name": "do_nothing",
+                "avatar_url": "https://www.golenbock.com/wp-content/uploads/2015/01/placeholder-user.png"
+            })
+        })
+    })
+    test(":( 404 - returns user not found given invalid username", () => {
+        return request(app).get("/api/users/zakaria").expect(404).then(({body}) => {
+            expect(body.msg).toBe("user not found!")
+        })
+    })
+})
 describe("GET /api", () => {
     test(":) 200 - responds with json descriping all the endpoints", () => {
         return request(app).get("/api").expect(200).then(({body}) => {
