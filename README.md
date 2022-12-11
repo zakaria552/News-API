@@ -1,5 +1,5 @@
 # Link to the hosted API
-🚀 https://jittery-pig-teddy.cyclic.app/api
+>🚀 https://nc-news-9og4.onrender.com/api
 
 # Project summary
 A RESTFUL news API fully built with using TDD methodology and the Model View Controller design pattern. The API that responds with information that is stored in a database server to its client and with this information it can be used by the frontend architecture. It make uses of sql database to store data about articles, topics, comments and users, e.g. like keeping track of the comments and reaction left in articles by the users. Ans also I used express node js dealing with the server side.
